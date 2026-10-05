@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Portfolio Dashboard</title>
+  <meta name="description" content="A static, educational core-satellite investment dashboard for GitHub Pages.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="disclaimer-banner" role="note">
+    <strong>Educational content only.</strong>
+    This is a <em>sample</em> portfolio shown for illustration — not personalized financial advice.
+    Do your own research or consult a qualified professional before investing.
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <h1 id="portfolio-name">Portfolio Dashboard</h1>
+        <p class="subtitle">Core-satellite &middot; low-cost &middot; built for decades, not days</p>
+      </div>
+      <div class="header-actions">
+        <span class="updated" id="updated-badge">Updated —</span>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle light / dark mode">
+          <span class="icon-sun" aria-hidden="true">☀️</span><span class="icon-moon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- 1. Summary cards -->
+    <section aria-label="Portfolio summary">
+      <div class="cards" id="summary-cards">
+        <div class="card stat"><span class="stat-label">Total value</span><span class="stat-value" id="stat-total">—</span><span class="stat-sub" id="stat-total-sub"></span></div>
+        <div class="card stat"><span class="stat-label">Day change</span><span class="stat-value" id="stat-day">—</span><span class="stat-sub" id="stat-day-sub"></span></div>
+        <div class="card stat"><span class="stat-label">Total return</span><span class="stat-value" id="stat-return">—</span><span class="stat-sub" id="stat-return-sub"></span></div>
+        <div class="card stat"><span class="stat-label">Holdings</span><span class="stat-value" id="stat-count">—</span><span class="stat-sub" id="stat-count-sub"></span></div>
+      </div>
+    </section>
+
+    <!-- 2. Allocation charts -->
+    <section aria-label="Allocation">
+      <h2>Allocation</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>By holding</h3>
+          <div class="chart-wrap"><canvas id="chart-donut"></canvas></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h3 id="bar-title">By sector</h3>
+            <div class="segmented" role="group" aria-label="Bar chart grouping">
+              <button class="seg-btn active" data-bar="sector">Sector</button>
+              <button class="seg-btn" data-bar="assetClass">Asset class</button>
+            </div>
+          </div>
+          <div class="chart-wrap"><canvas id="chart-bar"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Performance -->
+    <section aria-label="Performance">
+      <div class="card">
+        <div class="card-head">
+          <h2>Performance vs. S&amp;P 500</h2>
+          <div class="segmented" role="group" aria-label="Time range">
+            <button class="seg-btn" data-range="21">1M</button>
+            <button class="seg-btn" data-range="126">6M</button>
+            <button class="seg-btn active" data-range="252">1Y</button>
+            <button class="seg-btn" data-range="all">5Y</button>
+          </div>
+        </div>
+        <p class="fineprint">Growth of $100, rebased at the start of the selected period. Sample history — the updater extends it automatically.</p>
+        <div class="chart-wrap tall"><canvas id="chart-perf"></canvas></div>
+      </div>
+    </section>
+
+    <!-- 4. Risk panel -->
+    <section aria-label="Risk">
+      <h2>Risk check</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Diversification score</h3>
+          <div class="score-row">
+            <span class="score-num" id="risk-score">—</span>
+            <span class="score-label" id="risk-label"></span>
+          </div>
+          <div class="score-bar"><div class="score-fill" id="risk-fill"></div></div>
+          <ul class="risk-list">
+            <li>Largest single stock: <strong id="risk-largest">—</strong></li>
+            <li>Largest sector: <strong id="risk-sector">—</strong></li>
+            <li>Sectors represented: <strong id="risk-sectors">—</strong></li>
+          </ul>
+          <p class="fineprint">Score starts at 100 and deducts for stocks over 8%, sectors over 25%, drift beyond 5pp, and narrow breadth. See README for the exact formula.</p>
+        </div>
+        <div class="card">
+          <h3>Drift alerts</h3>
+          <p class="fineprint">Holdings more than <strong id="drift-threshold-label">5</strong>pp away from target need a rebalancing look.</p>
+          <ul class="alerts" id="drift-alerts"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Holdings table -->
+    <section aria-label="Holdings">
+      <h2>Holdings</h2>
+      <div class="card table-card">
+        <div class="table-scroll">
+          <table id="holdings-table">
+            <thead>
+              <tr>
+                <th>Ticker</th><th>Name</th><th>Sector</th><th>Weight vs. target</th>
+                <th>Price</th><th>Day</th><th>Total return</th><th>Thesis</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. The Veteran's Desk -->
+    <section aria-label="The Veteran's Desk">
+      <div class="card desk">
+        <h2>🪑 The Veteran's Desk</h2>
+        <p class="fineprint">Rendered live from <code>commentary.md</code> — edit that file to update this section. Educational perspective, not advice.</p>
+        <article id="commentary" class="commentary"><p>Loading commentary…</p></article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p><strong>Disclaimer:</strong> Educational content only — not personalized financial advice. Sample holdings, prices, and history are illustrative. Past performance does not guarantee future results.</p>
+    <p class="fineprint">Prices refresh via a scheduled GitHub Action (Stooq, no key required). Built with plain HTML, CSS, and vanilla JS + Chart.js. No build step.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
