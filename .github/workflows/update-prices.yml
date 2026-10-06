@@ -2,7 +2,7 @@ name: Update market prices
 
 on:
   schedule:
-    # Weekdays at 13:05 UTC — after the US market opens (Stooq quotes are ~15 min delayed)
+    # Weekdays at 13:05 UTC — after the US market opens (Yahoo quotes may be slightly delayed)
     - cron: '5 13 * * 1-5'
   workflow_dispatch: {}  # allow manual runs from the Actions tab
 
@@ -22,6 +22,8 @@ jobs:
           python-version: '3.12'
 
       - name: Fetch latest prices
+        env:
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
         run: python .github/scripts/fetch_prices.py
 
       - name: Commit and push if changed
@@ -29,5 +31,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add prices.json history.json
-          git diff --cached --quiet || git commit -m "chore: update market prices [skip ci]"
-          git push
+          if git diff --cached --quiet; then
+            echo "No price changes to commit."
+          else
+            git commit -m "chore: update market prices [skip ci]"
+            # The checkout can leave us in detached HEAD (no upstream branch),
+            # which makes a bare `git push` fail — so push explicitly.
+            # Rebase first in case something else landed on main meanwhile.
+            git pull --rebase origin main || true
+            git push origin HEAD:main
+          fi
