@@ -11,6 +11,7 @@
   var fmtUSD2 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   function fmtSignedUSD(x) { return (x < 0 ? '−' : '+') + fmtUSD.format(Math.abs(x)); }
+  function fmtSignedUSD2(x) { return (x < 0 ? '−' : '+') + fmtUSD2.format(Math.abs(x)); }
   function fmtPct(x, d) { d = (d === undefined) ? 1 : d; return (x < 0 ? '−' : '+') + Math.abs(x).toFixed(d) + '%'; }
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -298,7 +299,7 @@
         '<td>' + esc(r.sector) + '</td>' +
         '<td><strong>' + r.weight.toFixed(1) + '%</strong> <span class="tgt">tgt ' + r.targetWeight.toFixed(1) + '%</span>' + badge + '</td>' +
         '<td>' + fmtUSD2.format(r.price) + '</td>' +
-        '<td class="' + dayCls + '"><strong>' + fmtPct(r.price && r.prevClose ? (r.price - r.prevClose) / r.prevClose * 100 : 0) + '</strong><div class="tgt">' + fmtSignedUSD(r.dayChg) + '</div></td>' +
+        '<td class="' + dayCls + '"><strong>' + fmtPct(r.price && r.prevClose ? (r.price - r.prevClose) / r.prevClose * 100 : 0) + '</strong><div class="tgt">' + fmtSignedUSD2(r.price - r.prevClose) + '</div></td>' +
         '<td class="' + retCls + '"><strong>' + fmtPct(r.totRetPct) + '</strong><div class="tgt">' + fmtSignedUSD(r.totRet) + '</div></td>' +
         '<td class="thesis-cell">' + esc(r.thesis) + '<div class="tgt">Risk: ' + esc(r.risk) + '</div></td>' +
       '</tr>';
