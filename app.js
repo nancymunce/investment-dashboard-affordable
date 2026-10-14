@@ -298,7 +298,7 @@
         '<td>' + esc(r.sector) + '</td>' +
         '<td><strong>' + r.weight.toFixed(1) + '%</strong> <span class="tgt">tgt ' + r.targetWeight.toFixed(1) + '%</span>' + badge + '</td>' +
         '<td>' + fmtUSD2.format(r.price) + '</td>' +
-        '<td class="' + dayCls + '">' + fmtPct(r.price && r.prevClose ? (r.price - r.prevClose) / r.prevClose * 100 : 0) + '</td>' +
+        '<td class="' + dayCls + '"><strong>' + fmtPct(r.price && r.prevClose ? (r.price - r.prevClose) / r.prevClose * 100 : 0) + '</strong><div class="tgt">' + fmtSignedUSD(r.dayChg) + '</div></td>' +
         '<td class="' + retCls + '"><strong>' + fmtPct(r.totRetPct) + '</strong><div class="tgt">' + fmtSignedUSD(r.totRet) + '</div></td>' +
         '<td class="thesis-cell">' + esc(r.thesis) + '<div class="tgt">Risk: ' + esc(r.risk) + '</div></td>' +
       '</tr>';
