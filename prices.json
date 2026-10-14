@@ -1,55 +1,55 @@
 {
   "benchmark": {
     "label": "S&P 500",
-    "prevClose": 778.1,
-    "price": 778.4
+    "prevClose": 778.01,
+    "price": 767.44
   },
   "prices": {
     "CSCO": {
-      "price": 115.2,
-      "prevClose": 115.34
+      "price": 114.08,
+      "prevClose": 115.07
     },
     "CSX": {
-      "price": 47.94,
-      "prevClose": 47.75
+      "price": 47.9,
+      "prevClose": 47.76
     },
     "EXC": {
-      "price": 42.36,
-      "prevClose": 42.12
+      "price": 42.56,
+      "prevClose": 42.34
     },
     "KO": {
-      "price": 90.29,
-      "prevClose": 89.79
+      "price": 91.8,
+      "prevClose": 90.11
     },
     "PFE": {
-      "price": 28.4,
-      "prevClose": 28.4
+      "price": 29.38,
+      "prevClose": 28.37
     },
     "SCHB": {
-      "price": 29.89,
-      "prevClose": 29.88
+      "price": 29.43,
+      "prevClose": 29.85
     },
     "SCHF": {
-      "price": 27.18,
-      "prevClose": 27.13
+      "price": 26.83,
+      "prevClose": 27.14
     },
     "SCHZ": {
       "price": 22.16,
-      "prevClose": 22.13
+      "prevClose": 22.15
     },
     "UL": {
-      "price": 62.6,
-      "prevClose": 62.95
+      "price": 63.75,
+      "prevClose": 62.49
     },
     "USB": {
-      "price": 57.01,
-      "prevClose": 57.42
+      "price": 55.9,
+      "prevClose": 56.89
     },
     "VZ": {
-      "price": 43.45,
-      "prevClose": 42.78
+      "price": 44.18,
+      "prevClose": 43.53
     }
   },
   "source": "sample data \u2014 replaced automatically by the GitHub Action (.github/workflows/update-prices.yml)",
-  "updated": "2026-10-13T19:50:24+00:00"
+  "updated": "2026-10-14T17:57:39+00:00"
 }
